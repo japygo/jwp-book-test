@@ -1,4 +1,4 @@
-package com.example.jwpbooktest.chapter1;
+package com.example.jwpbooktest.chapter2;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -86,19 +86,19 @@ public class StringCalculatorTest {
         String all = "//;\n1;2,3:4";
 
         // when
-        List<String> onlyCommaSeparator = calculator.getSeparator(onlyComma);
-        List<String> onlyColonSeparator = calculator.getSeparator(onlyColon);
-        List<String> commaColonSeparator = calculator.getSeparator(commaColon);
-        List<String> customSeparator = calculator.getSeparator(custom);
-        List<String> customColonSeparator = calculator.getSeparator(customColon);
-        List<String> allSeparator = calculator.getSeparator(all);
+        String onlyCommaSeparator = calculator.getSeparator(onlyComma);
+        String onlyColonSeparator = calculator.getSeparator(onlyColon);
+        String commaColonSeparator = calculator.getSeparator(commaColon);
+        String customSeparator = calculator.getSeparator(custom);
+        String customColonSeparator = calculator.getSeparator(customColon);
+        String allSeparator = calculator.getSeparator(all);
 
         // then
-        assertThat(onlyCommaSeparator).hasSize(1).contains(",");
-        assertThat(onlyColonSeparator).hasSize(1).contains(":");
-        assertThat(commaColonSeparator).hasSize(2).contains(",").contains(":");
-        assertThat(customSeparator).hasSize(1).contains(";");
-        assertThat(customColonSeparator).hasSize(2).contains(";").contains(":");
-        assertThat(allSeparator).hasSize(3).contains(";").contains(":").contains(",");
+        assertThat(onlyCommaSeparator).isEqualTo(",");
+        assertThat(onlyColonSeparator).isEqualTo(":");
+        assertThat(commaColonSeparator).isEqualTo(",|:");
+        assertThat(customSeparator).isEqualTo(";");
+        assertThat(customColonSeparator).isEqualTo(";|:");
+        assertThat(allSeparator).isEqualTo(";|,|:");
     }
 }
