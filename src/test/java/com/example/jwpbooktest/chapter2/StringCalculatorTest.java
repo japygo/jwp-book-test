@@ -1,6 +1,7 @@
 package com.example.jwpbooktest.chapter2;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -16,6 +17,56 @@ public class StringCalculatorTest {
     @BeforeEach
     public void setup() {
         calculator = new StringCalculator();
+    }
+
+    @Test
+    @DisplayName("add null 또는 빈문자")
+    public void add_null_or_blank() {
+        int addBlank = calculator.add("");
+        int addNull = calculator.add(null);
+
+        assertThat(addBlank).isEqualTo(0);
+        assertThat(addNull).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("add 숫자 하나")
+    public void add_num_one() {
+        int addNum = calculator.add("1");
+
+        assertThat(addNum).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("add 쉼표 구분자")
+    public void add_comma() {
+        int addComma = calculator.add("1,2");
+
+        assertThat(addComma).isEqualTo(3);
+    }
+
+    @Test
+    @DisplayName("add 쉼표 또는 콜론 구분자")
+    public void add_comma_or_colon() {
+        int sum = calculator.add("1,2:3");
+
+        assertThat(sum).isEqualTo(6);
+    }
+
+    @Test
+    @DisplayName("add custom 구분자")
+    public void add_custom() {
+        int sum = calculator.add("//;\n1;2;3");
+
+        assertThat(sum).isEqualTo(6);
+    }
+
+    @Test
+    @DisplayName("add 음수")
+    public void add_negative() {
+        Throwable negative = catchThrowable(() -> calculator.add("-1,2,3"));
+
+        assertThat(negative).isInstanceOf(RuntimeException.class);
     }
 
     @Test
